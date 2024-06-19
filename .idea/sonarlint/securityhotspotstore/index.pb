@@ -16,3 +16,17 @@ R
 "external-transaction/src/config.ts,b/1/b1de5e8e24f2d100d642eb2d9d2cfba3c1b36449
 S
 #external-transaction/src/app/app.ts,5/b/5babd2d72c095ca9ad71bd7840bedcc004ce9c08
+J
+account-service/Dockerfile,3/4/341eac6ebfd8b5975cae0e6b01c65d70ae24ed0a
+B
+gateway/Dockerfile,5/a/5a39717901490093530d8f039ae4bb7d57680f50
+O
+authorization-server/Dockerfile,e/6/e6831c6fde98a682a6d2109d5f8b85be6b911c04
+H
+config-server/Dockerfile,b/6/b61e3bf1cf202a99b9cf49c6d7e26c98df17134b
+H
+eureka-server/Dockerfile,c/2/c23e45bb07363b2bfed88dc0975147c2a8cedd09
+N
+transaction-service/Dockerfile,f/c/fccf641c6d9d327848746e866398fe52740af8da
+O
+external-transaction/Dockerfile,e/1/e154404a88721bd44fcbaf91f28f8fb4789dbc8e
