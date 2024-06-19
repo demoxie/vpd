@@ -1,0 +1,8 @@
+.idea
+account-service/target
+authorization-server/target
+config-server/target
+eureka-server/target
+external-transaction/package-lock.json
+external-transaction/.node_modules
+transaction-service/target
