@@ -1,0 +1,65 @@
+version: "3.9"
+services:
+  config-server:
+    image: config-server:latest
+    container_name: config-server
+    build:
+      context: ./config-server
+       dockerfile:./config-server/Dockerfile
+    ports:
+      - "8888:8888"
+  eureka-server:
+    image: eureka-server:latest
+    container_name: eureka-server
+    build:
+      context: ./eureka-server
+       dockerfile:./eureka-server/Dockerfile
+    ports:
+      - "8761:8761"
+  gateway:
+    image: gateway:latest
+    container_name: gateway
+    build:
+      context: ./gateway
+       dockerfile:./gateway/Dockerfile
+    ports:
+      - "4040:4040"
+    depends_on:
+      - config-server
+  account-service:
+    image: account-service:latest
+    container_name: account-service
+    build:
+      context: ./account-service
+       dockerfile:./account-service/Dockerfile
+    ports:
+      - "2020:2020"
+    depends_on:
+      - config-server
+      - eureka-server
+      - gateway
+  transaction-service:
+    image: transaction-service:latest
+    container_name: transaction-service
+    build:
+      context: ./transaction-service
+       dockerfile:./transaction-service/Dockerfile
+    ports:
+      - "3030:3030"
+    depends_on:
+      - config-server
+      - eureka-server
+      - gateway
+  authorization-server:
+    image: authorization-server:latest
+    container_name: authorization-server
+    build:
+      context: ./authorization-server
+       dockerfile:./authorization-server/Dockerfile
+    ports:
+      - "7070:7070"
+    depends_on:
+      - config-server
+      - eureka-server
+      - gateway
+    account_service_db:
