@@ -6,7 +6,7 @@ dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    port: parseInt((process.env.DB_PORT || "5050")),
+    port: parseInt((process.env.DB_PORT || "4000")),
     host: process.env.DB_HOST,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
@@ -14,7 +14,7 @@ export const AppDataSource = new DataSource({
     insecureAuth: false,
     connectorPackage: "mysql2",
     synchronize: true,
-    logging: true,
+    // logging: true,
     entities: [User],
     migrations: [],
     subscribers: [],

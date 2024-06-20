@@ -1,45 +1,19 @@
+import * as dotenv from "dotenv";
+import axios, {AxiosRequestConfig} from "axios";
+
+dotenv.config();
 const baseUrl = process.env.GATEWAY_BASE_URL;
+console.log("THE BASE URL: " + baseUrl);
 const credentials = 'include';
-
-export interface options {
-  method?: string;
-  body?: any;
-  headers?: any;
-  params?: any;
-  url?: any;
-  data?: any;
-  json?: any;
-  timeout?: any;
-}
-
-const webClient = async (endpoint: any, options: options) => {
-  const url = `${baseUrl}${endpoint}`;
-
-  const defaultOptions = {
-    credentials,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const mergedOptions = {
-    ...defaultOptions,
-    ...options,
-    headers: {
-      ...defaultOptions.headers,
-      ...options.headers,
-    },
-  };
-
-  let response = await fetch(url, {
-    method: mergedOptions.method,
-    body: JSON.stringify(mergedOptions.body),
-    headers: mergedOptions.headers,
-  });
-  if (!response.ok) {
-    return Promise.reject(new Error(`HTTP error! status: ${response.status}`));
-  }
-  return response.json();
-};
+const clientId = process.env.GATEWAY_CLIENT_ID || "client";
+const clientSecret = process.env.GATEWAY_CLIENT_SECRET || "client";
+const webClient = axios.create({
+  baseURL: baseUrl,
+  headers: {
+    'Content-Type': 'application/json',
+    // Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+  },
+  // withCredentials: true,
+});
 
 export default webClient;

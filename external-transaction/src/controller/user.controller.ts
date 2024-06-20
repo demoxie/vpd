@@ -14,12 +14,8 @@ export class UserController{
 
     public signup = async (req: ISignupRequest, res: Response, next: NextFunction) => {
         try {
-            console.log("Heo guys");
-            const result = await this.userService.createProfile(req, req.path)
-            res.status(200).send({
-                data: result,
-                message: "Sign up successful"
-            });
+            const result = await this.userService.signup(req, req.path)
+            res.status(200).send(result);
         }catch (e){
             next(e)
         }
@@ -27,10 +23,7 @@ export class UserController{
 
     public login = async(req: LoginRequest, res: Response, next: NextFunction) => {
         try {
-            res.status(200).json({
-                data: await this.userService.login(req, req.path),
-                message: "Profiles fetched successful"
-            })
+            res.status(200).json(await this.userService.login(req, req.path));
         }catch (e){
             next(e)
         }

@@ -1,5 +1,8 @@
 import debug from "debug"
 import {NextFunction, Request, Response} from "express";
+export interface ErrorDetails extends Error{
+    statusCode: number;
+}
 export const requestLogInterceptor = (req: Request, res: Response, next: NextFunction) => {
     const logger = debug('app:logs');
     Object.keys(req.body).length !== 0 && console.log(`{request: ${JSON.stringify(req.body)}}`);
@@ -12,9 +15,11 @@ export const requestLogInterceptor = (req: Request, res: Response, next: NextFun
     next();
 }
 
-export const responseLogInterceptor = (err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack);
-    res.status(err["statusCode"]).json(err);
+export const responseLogInterceptor = (err: ErrorDetails, req: Request, res: Response, next: NextFunction) => {
+    let resp = {};
+    err ? resp = err : res.json();
+    let statusCode = err["statusCode"] === undefined ? 200 : err["statusCode"];
+    res.status(statusCode).json(resp);
 };
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction)=>{

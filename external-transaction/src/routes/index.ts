@@ -9,10 +9,12 @@ export class Routes{
         this.userController = userController
     }
     public getRoutes = ()=>{
+        console.log("Hello from");
         const {signup, login, getUserProfile, updateCustomer, deleteCustomer} = this.userController;
 
-        this.router.post("/profiles",signup);
-        this.router.get("/profiles",login);
+
+        this.router.post("/signup",signup);
+        this.router.post("/login",login);
         this.router.get("/profiles/:userId",getUserProfile);
         this.router.put("/profiles/:userId",updateCustomer);
         this.router.delete("/profiles/:userId",deleteCustomer);

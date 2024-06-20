@@ -1,6 +1,6 @@
 import * as express from "express";
 
-export interface LoginRequest {
+export interface LoginRequest extends express.Request{
     email: string;
     password: string;
   path: string;

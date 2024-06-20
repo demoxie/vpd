@@ -10,6 +10,8 @@ import com.vpd.authorizationserver.repository.CustomerRepository;
 import com.vpd.authorizationserver.vo.CustomerVO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +24,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class CustomerServiceImpl implements CustomerService {
+    private static final Logger log = LoggerFactory.getLogger(CustomerServiceImpl.class);
     private final CustomerRepository customerRepository;
     private final ModelMapper mapper;
     private final PasswordEncoder passwordEncoder;
@@ -102,6 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
         response.setStatus(200);
         response.setMessage("Login successful");
         response.setData(customerVO);
+        log.info("Login details {}", response);
         return response;
     }
 }

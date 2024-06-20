@@ -11,7 +11,7 @@ const app: Express = express();
 const router: Router = express.Router();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, 
+  max: 3,
   message: 'Too many requests from this IP, please try again later'
 });
 
@@ -23,7 +23,9 @@ const userService = new UserService();
 const userController = new UserController(userService);
 const routes = new Routes(router, userController);
 const rs = routes.getRoutes();
-app.use("/api/v1",rs);
 app.use(requestLogInterceptor);
+console.log("Hello from");
+app.use("/api/v1/auth", rs);
 app.use(responseLogInterceptor);
+
 export default app;

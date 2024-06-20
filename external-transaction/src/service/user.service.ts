@@ -6,10 +6,11 @@ import webClient from "../config/api-client";
 
 export class UserService{
 
-    createProfile = async (req: ISignupRequest, path: string) => {
-        return await webClient("/api/v1/auth/create",{
-           method: "POST",
-           data: req
+    signup = async (req: ISignupRequest, path: string) => {
+        return await webClient.post("/auth/register",{
+            email:req.body.email,
+            password:req.body.password,
+            name:req.body.name
         })
        .then(response =>{
             return response.data;
@@ -20,15 +21,15 @@ export class UserService{
     };
 
     login = async (loginRequest: LoginRequest, path: string) => {
-        return await webClient("/auth/login", {
-           method: "POST",
-           data: loginRequest
+        return await webClient.post("/auth/login", {
+            email: loginRequest.body.email,
+            password:  loginRequest.body.password
         })
           .then(response =>{
             return response.data;
           })
           .catch(err =>{
-            throw new APIException(err.message,path);
+            throw new APIException(err.message, path);
           })
     };
 
