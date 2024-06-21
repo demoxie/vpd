@@ -3,6 +3,7 @@ import {AppDataSource} from "../config/db/data-source";
 import {User} from "../entity/user.entity";
 import {AlreadyExistException, APIException, DatabaseError, NotFoundException} from "../exceptions";
 import webClient from "../config/api-client";
+import {AxiosError} from "axios";
 
 export class UserService{
 
@@ -16,7 +17,7 @@ export class UserService{
             return response.data;
         })
           .catch(error=>{
-            throw new APIException(error.message,path);
+            throw new APIException(err?.response?.data?.message,path);
           })
     };
 
@@ -29,21 +30,18 @@ export class UserService{
             return response.data;
           })
           .catch(err =>{
-            throw new APIException(err.message, path);
+            throw new APIException(err?.response?.data?.message, path);
           })
     };
 
-    getUserProfile = async (userId: number, path: string) => {
-        const existingUser = await AppDataSource.getRepository(User).findOneBy({
-            id: userId
-        })
-            .catch(err=>{
-                throw new DatabaseError(err, path);
-            });
-        if(!existingUser){
-            throw new NotFoundException("User not found",path);
-        }
-        return existingUser;
+    validateToken = async (token: number, path: string) => {
+        return webClient.post("/auth/validateToken?token=" + token)
+         .then(response =>{
+            return response.data;
+          })
+         .catch((err: AxiosError) =>{
+            throw new APIException(err?.response?.data?.message, path);
+          });
     };
 
     updateUserProfile = async (req: IUpdateProfileRequest, path: string) => {

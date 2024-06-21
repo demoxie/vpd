@@ -31,3 +31,13 @@ export interface IUpdateProfileRequest extends express.Request {
     phoneNumber: string,
     address: string,
 }
+
+export interface ILoginRequest extends express.Request {
+    email: string;
+    password: string;
+}
+
+export interface IValidateToken extends express.Request {
+    token: string;
+    query: any;
+}

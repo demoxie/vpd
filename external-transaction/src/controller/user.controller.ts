@@ -1,7 +1,7 @@
 import * as express from "express";
 import {NextFunction, Request, Response} from "express";
 import {UserService} from "../service/user.service";
-import {ISignupRequest, IUpdateProfileRequest, IUserIdRequest, LoginRequest} from "../types";
+import {ISignupRequest, IUpdateProfileRequest, IUserIdRequest, IValidateToken, LoginRequest} from "../types";
 
 
 
@@ -29,10 +29,11 @@ export class UserController{
         }
     };
 
-    public getUserProfile = async (req: IUserIdRequest, res: Response, next: NextFunction) => {
+    public validateToken = async (req: IValidateToken, res: Response, next: NextFunction) => {
         try {
+            console.log("TOKEN ",req.query.token);
             res.status(200).json({
-                data: await this.userService.getUserProfile(parseInt(req.params.userId), req.path),
+                data: await this.userService.validateToken(req.query.token, req.path),
                 message: "Profile fetched successful"
             })
         }catch (e){
