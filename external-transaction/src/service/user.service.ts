@@ -17,7 +17,7 @@ export class UserService{
             return response.data;
         })
           .catch(error=>{
-            throw new APIException(err?.response?.data?.message,path);
+            throw new APIException(error?.response?.data?.message,path);
           })
     };
 
@@ -27,7 +27,9 @@ export class UserService{
             password:  loginRequest.body.password
         })
           .then(response =>{
-            return response.data;
+              let res= response.data;
+              localStorage.setItem("token",res.data.token);
+              return res.data;
           })
           .catch(err =>{
             throw new APIException(err?.response?.data?.message, path);
@@ -39,7 +41,7 @@ export class UserService{
          .then(response =>{
             return response.data;
           })
-         .catch((err: AxiosError) =>{
+         .catch((err) =>{
             throw new APIException(err?.response?.data?.message, path);
           });
     };

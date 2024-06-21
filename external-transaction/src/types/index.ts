@@ -41,3 +41,21 @@ export interface IValidateToken extends express.Request {
     token: string;
     query: any;
 }
+
+export interface ICreateAccountRequest extends express.Request {
+    name: string;
+    accountTypeId: number;
+    accountOpeningAmount: number;
+    description: string;
+    openedBy: number;
+    status: string;
+    accountNumber: string;
+    dateOpened: string;
+    balance: number;
+}
+
+export interface IMakePaymentRequest extends express.Request {
+    amount: number;
+    accountNumber: string;
+    description: string;
+}
